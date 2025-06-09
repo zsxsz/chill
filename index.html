@@ -1,0 +1,3217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Veo 3 AI Prompt Generator - Create high-quality video prompts for Gemini AI">
+    <meta name="keywords" content="Veo 3, Gemini AI, prompt generator, video generation, AI video">
+    <meta name="theme-color" content="#667eea">
+    <meta property="og:title" content="Veo 3 Prompt Generator Pro - Gemini AI">
+    <meta property="og:description" content="Create professional video prompts for Veo 3 AI with our advanced generator">
+    <meta property="og:type" content="website">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <title>Veo 3 Prompt Generator Pro - Gemini AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            animation: gradientShift 20s ease infinite;
+            will-change: background;
+            background-attachment: fixed;
+            background-size: 400% 400%;
+        }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(15px);
+            margin: 20px auto;
+            padding: 40px;
+            max-width: 1400px;
+        }
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            transform: translateY(-2px);
+            will-change: transform;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            padding: 15px 35px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            will-change: transform;
+        }
+        .result-box {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 25px;
+            border-left: 6px solid #667eea;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+        .result-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .language-toggle {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        .section-header {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #f093fb, #667eea);
+        }
+        .face-type-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .face-type-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        .face-type-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+        }
+        .face-type-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        .face-type-card.selected .icon {
+            color: white;
+        }
+        .advanced-section {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 1px solid #e9ecef;
+        }
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .preset-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .preset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .quality-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 12px;
+        }
+        .quality-bar {
+            flex: 1;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .quality-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            transition: width 0.5s ease;
+        }
+        .tips-section {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #ffc107;
+        }
+        .character-count {
+            font-size: 11px;
+            color: #6c757d;
+            text-align: right;
+            margin-top: 5px;
+        }
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+        .example-prompts {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+        }
+        .example-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #2196f3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .example-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
+        }
+        .veo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            .language-toggle {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+            }
+            .veo-features {
+                grid-template-columns: 1fr;
+            }
+            .preset-buttons {
+                justify-content: center;
+            }
+        }
+        .prompt-quality-analyzer {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #4caf50;
+        }
+        .quality-metric {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+        }
+        .metric-label {
+            flex: 1;
+            font-weight: 500;
+        }
+        .metric-value {
+            width: 60px;
+            text-align: right;
+            font-weight: 600;
+            color: #4caf50;
+        }
+        .prompt-enhancement-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .enhancement-tool {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .enhancement-tool:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+        .ai-suggestions {
+            background: linear-gradient(145deg, #fff8e1, #ffecb3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+        .suggestion-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .suggestion-item:hover {
+            background: #f8f9fa;
+            transform: scale(1.02);
+        }
+        .prompt-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .template-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .template-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        .advanced-controls {
+            background: linear-gradient(145deg, #f3e5f5, #e1bee7);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #9c27b0;
+        }
+        .control-group {
+            margin: 15px 0;
+        }
+        .control-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+        }
+        .slider-control {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e9ecef;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .slider-control::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slider-control::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .preset-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .category-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .category-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="language-toggle">
+            <button class="btn btn-outline-primary btn-sm" onclick="toggleLanguage()" aria-label="Toggle language">
+                <i class="fas fa-language" aria-hidden="true"></i> <span id="langToggleText">English</span>
+            </button>
+        </div>
+        
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary mb-3" role="heading" aria-level="1">
+                <i class="fas fa-video" aria-hidden="true"></i> Veo 3 Prompt Generator Pro
+            </h1>
+            <p class="lead" id="subtitle" role="contentinfo">Generator Prompt Profesional untuk Google Veo 3 AI dengan Fitur Lengkap</p>
+            <div class="quality-indicator" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <span class="text-muted fw-bold" id="qualityLabel">Kualitas Prompt:</span>
+                <div class="quality-bar">
+                    <div class="quality-fill" id="qualityFill"></div>
+                </div>
+                <span id="qualityText" aria-live="polite">0%</span>
+            </div>
+        </div>
+
+        <!-- Veo 3 Features -->
+        <div class="veo-features">
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h6>Video 8 Detik</h6>
+                <small>Resolusi hingga 1080p</small>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔊</div>
+                <h6>Audio Terintegrasi</h6>
+                <small>Suara otomatis dari AI</small>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎭</div>
+                <h6>Sinematik</h6>
+                <small>Kualitas film profesional</small>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h6>Proses Cepat</h6>
+                <small>3-5 menit generate</small>
+            </div>
+        </div>
+
+        <form id="promptForm">
+            <!-- Face Type Selection -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="faceTypeHeader">
+                    <i class="fas fa-user-friends"></i> Pilihan Wajah & Etnis
+                </h4>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="face-type-card" onclick="selectFaceType('indonesian')">
+                            <div class="icon">🇮🇩</div>
+                            <h6 id="indonesianFace">Wajah Indonesia</h6>
+                            <small id="indonesianDesc">Fitur Asia Tenggara</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="face-type-card" onclick="selectFaceType('asian')">
+                            <div class="icon">🌏</div>
+                            <h6 id="asianFace">Wajah Asia</h6>
+                            <small id="asianDesc">Asia Timur & Selatan</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="face-type-card" onclick="selectFaceType('western')">
+                            <div class="icon">🌍</div>
+                            <h6 id="westernFace">Wajah Barat</h6>
+                            <small id="westernDesc">Eropa & Amerika</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="face-type-card" onclick="selectFaceType('mixed')">
+                            <div class="icon">🌎</div>
+                            <h6 id="mixedFace">Campuran</h6>
+                            <small id="mixedDesc">Multi-etnis</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic Information -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="basicInfoHeader">
+                    <i class="fas fa-info-circle"></i> Informasi Dasar
+                </h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="genderLabel">
+                                <i class="fas fa-venus-mars"></i> Jenis Kelamin
+                            </label>
+                            <select class="form-select" id="gender" onchange="updateQuality()">
+                                <option value="">Pilih jenis kelamin</option>
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                                <option value="anak laki-laki">Anak Laki-laki</option>
+                                <option value="anak perempuan">Anak Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="ageLabel">
+                                <i class="fas fa-birthday-cake"></i> Usia
+                            </label>
+                            <select class="form-select" id="age" onchange="updateQuality()">
+                                <option value="">Pilih rentang usia</option>
+                                <option value="anak-anak (5-12 tahun)">Anak-anak (5-12 tahun)</option>
+                                <option value="remaja (13-19 tahun)">Remaja (13-19 tahun)</option>
+                                <option value="dewasa muda (20-35 tahun)">Dewasa Muda (20-35 tahun)</option>
+                                <option value="dewasa (36-50 tahun)">Dewasa (36-50 tahun)</option>
+                                <option value="paruh baya (51-65 tahun)">Paruh Baya (51-65 tahun)</option>
+                                <option value="lansia (65+ tahun)">Lansia (65+ tahun)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="appearanceLabel">
+                                <i class="fas fa-user-tie"></i> Penampilan
+                            </label>
+                            <select class="form-select" id="appearance" onchange="updateQuality()">
+                                <option value="">Pilih penampilan</option>
+                                <option value="kasual">Kasual</option>
+                                <option value="formal">Formal</option>
+                                <option value="tradisional">Tradisional</option>
+                                <option value="sporty">Sporty</option>
+                                <option value="elegant">Elegant</option>
+                                <option value="bohemian">Bohemian</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="subjectLabel">
+                                <i class="fas fa-user"></i> Deskripsi Subjek
+                            </label>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn" onclick="setPreset('subject', 'seorang wanita muda berambut panjang')">Wanita Muda</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('subject', 'seorang pria dewasa berjas')">Pria Formal</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('subject', 'seorang anak perempuan ceria')">Anak Ceria</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('subject', 'seorang remaja berseragam sekolah')">Siswa</button>
+                            </div>
+                            <input type="text" class="form-control" id="subject" placeholder="Contoh: Seorang wanita muda berambut panjang dengan wajah Indonesia" oninput="updateQuality()">
+                            <div class="character-count" id="subjectCount">0/150 karakter</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="actionLabel">
+                                <i class="fas fa-running"></i> Aksi & Gerakan
+                            </label>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn" onclick="setPreset('action', 'sedang berjalan dengan anggun')">Berjalan Anggun</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('action', 'tersenyum sambil melambaikan tangan')">Senyum & Lambaian</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('action', 'menari dengan gerakan halus')">Menari Halus</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('action', 'berbicara ke kamera')">Berbicara</button>
+                            </div>
+                            <input type="text" class="form-control" id="action" placeholder="Contoh: sedang berjalan dengan percaya diri sambil tersenyum" oninput="updateQuality()">
+                            <div class="character-count" id="actionCount">0/150 karakter</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expression & Emotion -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="emotionHeader">
+                    <i class="fas fa-smile"></i> Ekspresi & Emosi
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="expressionLabel">
+                                <i class="fas fa-theater-masks"></i> Ekspresi Wajah
+                            </label>
+                            <select class="form-select" id="expression" onchange="updateQuality()">
+                                <option value="">Pilih ekspresi</option>
+                                <option value="senyuman bahagia">Senyuman Bahagia</option>
+                                <option value="senyuman lembut">Senyuman Lembut</option>
+                                <option value="tertawa lepas">Tertawa Lepas</option>
+                                <option value="wajah serius">Wajah Serius</option>
+                                <option value="ekspresi terkejut">Ekspresi Terkejut</option>
+                                <option value="wajah penuh konsentrasi">Wajah Konsentrasi</option>
+                                <option value="ekspresi misterius">Ekspresi Misterius</option>
+                                <option value="wajah tenang dan damai">Wajah Tenang</option>
+                                <option value="mata berbinar-binar">Mata Berbinar</option>
+                                <option value="ekspresi percaya diri">Percaya Diri</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="emotionLabel">
+                                <i class="fas fa-heart"></i> Suasana Hati
+                            </label>
+                            <select class="form-select" id="emotion" onchange="updateQuality()">
+                                <option value="">Pilih suasana hati</option>
+                                <option value="gembira">Gembira</option>
+                                <option value="damai">Damai</option>
+                                <option value="percaya diri">Percaya Diri</option>
+                                <option value="romantis">Romantis</option>
+                                <option value="energik">Energik</option>
+                                <option value="contemplatif">Contemplatif</option>
+                                <option value="playful">Playful</option>
+                                <option value="elegan">Elegan</option>
+                                <option value="inspiratif">Inspiratif</option>
+                                <option value="nostalgia">Nostalgia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location & Environment -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="locationHeader">
+                    <i class="fas fa-map-marker-alt"></i> Lokasi & Lingkungan
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="locationLabel">
+                                <i class="fas fa-globe-asia"></i> Tempat
+                            </label>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn" onclick="setPreset('location', 'di taman kota Jakarta yang hijau')">Taman Jakarta</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('location', 'di pantai Bali saat sunset')">Pantai Bali</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('location', 'di kafe modern di Bandung')">Kafe Bandung</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('location', 'di jalan Malioboro Yogyakarta')">Malioboro</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('location', 'di sawah terasering Jatiluwih')">Sawah Bali</button>
+                            </div>
+                            <input type="text" class="form-control" id="location" placeholder="Contoh: di taman yang indah dengan bunga sakura" oninput="updateQuality()">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="environmentLabel">
+                                <i class="fas fa-tree"></i> Suasana Lingkungan
+                            </label>
+                            <select class="form-select" id="environment" onchange="updateQuality()">
+                                <option value="">Pilih suasana lingkungan</option>
+                                <option value="ramai dan hidup">Ramai dan Hidup</option>
+                                <option value="tenang dan damai">Tenang dan Damai</option>
+                                <option value="romantis">Romantis</option>
+                                <option value="urban modern">Urban Modern</option>
+                                <option value="alami dan asri">Alami dan Asri</option>
+                                <option value="vintage klasik">Vintage Klasik</option>
+                                <option value="futuristik">Futuristik</option>
+                                <option value="tradisional Indonesia">Tradisional Indonesia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Settings -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="technicalHeader">
+                    <i class="fas fa-cog"></i> Pengaturan Teknis
+                </h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="timeLabel">
+                                <i class="fas fa-clock"></i> Waktu
+                            </label>
+                            <select class="form-select" id="time" onchange="updateQuality()">
+                                <option value="">Pilih waktu</option>
+                                <option value="pagi hari">Pagi Hari (06:00-10:00)</option>
+                                <option value="siang hari">Siang Hari (10:00-15:00)</option>
+                                <option value="sore hari">Sore Hari (15:00-18:00)</option>
+                                <option value="malam hari">Malam Hari (18:00-22:00)</option>
+                                <option value="fajar">Fajar (05:00-06:00)</option>
+                                <option value="senja">Senja (17:00-19:00)</option>
+                                <option value="tengah malam">Tengah Malam (22:00-05:00)</option>
+                                <option value="golden hour">Golden Hour</option>
+                                <option value="blue hour">Blue Hour</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="cameraLabel">
+                                <i class="fas fa-camera"></i> Gerakan Kamera
+                            </label>
+                            <select class="form-select" id="camera" onchange="updateQuality()">
+                                <option value="">Pilih gerakan kamera</option>
+                                <option value="static shot">Static Shot (bidikan statis)</option>
+                                <option value="slow pan left">Slow Pan Left (geser kiri perlahan)</option>
+                                <option value="slow pan right">Slow Pan Right (geser kanan perlahan)</option>
+                                <option value="tilt up">Tilt Up (miring ke atas)</option>
+                                <option value="tilt down">Tilt Down (miring ke bawah)</option>
+                                <option value="slow zoom in">Slow Zoom In (perbesar perlahan)</option>
+                                <option value="slow zoom out">Slow Zoom Out (perkecil perlahan)</option>
+                                <option value="dolly forward">Dolly Forward (maju perlahan)</option>
+                                <option value="dolly backward">Dolly Backward (mundur perlahan)</option>
+                                <option value="3D rotation">3D Rotation (rotasi 3D)</option>
+                                <option value="tracking shot">Tracking Shot (mengikuti objek)</option>
+                                <option value="crane shot">Crane Shot (bidikan crane)</option>
+                                <option value="handheld">Handheld (genggaman tangan)</option>
+                                <option value="steadicam">Steadicam (stabil halus)</option>
+                                <option value="drone shot">Drone Shot (bidikan drone)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="lightingLabel">
+                                <i class="fas fa-lightbulb"></i> Pencahayaan
+                            </label>
+                            <select class="form-select" id="lighting" onchange="updateQuality()">
+                                <option value="">Pilih pencahayaan</option>
+                                <option value="natural lighting">Natural Lighting (cahaya alami)</option>
+                                <option value="golden hour lighting">Golden Hour (jam emas)</option>
+                                <option value="blue hour lighting">Blue Hour (jam biru)</option>
+                                <option value="soft lighting">Soft Lighting (cahaya lembut)</option>
+                                <option value="dramatic lighting">Dramatic Lighting (cahaya dramatis)</option>
+                                <option value="backlighting">Backlighting (cahaya belakang)</option>
+                                <option value="studio lighting">Studio Lighting (cahaya studio)</option>
+                                <option value="neon lighting">Neon Lighting (cahaya neon)</option>
+                                <option value="candlelight">Candlelight (cahaya lilin)</option>
+                                <option value="moonlight">Moonlight (cahaya bulan)</option>
+                                <option value="warm lighting">Warm Lighting (cahaya hangat)</option>
+                                <option value="cool lighting">Cool Lighting (cahaya dingin)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Style & Mood -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="styleHeader">
+                    <i class="fas fa-palette"></i> Gaya & Suasana Video
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="styleLabel">
+                                <i class="fas fa-film"></i> Gaya Video
+                            </label>
+                            <select class="form-select" id="style" onchange="updateQuality()">
+                                <option value="">Pilih gaya video</option>
+                                <option value="cinematic">Cinematic (sinematik)</option>
+                                <option value="documentary">Documentary (dokumenter)</option>
+                                <option value="vintage">Vintage (klasik)</option>
+                                <option value="modern">Modern (kontemporer)</option>
+                                <option value="artistic">Artistic (artistik)</option>
+                                <option value="realistic">Realistic (realistis)</option>
+                                <option value="dreamy">Dreamy (seperti mimpi)</option>
+                                <option value="noir">Film Noir (hitam putih dramatis)</option>
+                                <option value="commercial">Commercial (iklan)</option>
+                                <option value="indie">Indie (independent)</option>
+                                <option value="retro">Retro (tahun 90an)</option>
+                                <option value="minimalist">Minimalist (sederhana)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="moodLabel">
+                                <i class="fas fa-palette"></i> Suasana Video
+                            </label>
+                            <select class="form-select" id="mood" onchange="updateQuality()">
+                                <option value="">Pilih suasana</option>
+                                <option value="cheerful">Cheerful (ceria)</option>
+                                <option value="melancholic">Melancholic (melankolis)</option>
+                                <option value="mysterious">Mysterious (misterius)</option>
+                                <option value="romantic">Romantic (romantis)</option>
+                                <option value="energetic">Energetic (energik)</option>
+                                <option value="peaceful">Peaceful (damai)</option>
+                                <option value="dramatic">Dramatic (dramatis)</option>
+                                <option value="suspenseful">Suspenseful (menegangkan)</option>
+                                <option value="inspiring">Inspiring (menginspirasi)</option>
+                                <option value="nostalgic">Nostalgic (nostalgia)</option>
+                                <option value="uplifting">Uplifting (membangkitkan semangat)</option>
+                                <option value="serene">Serene (tenang)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio & Dialogue -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="audioHeader">
+                    <i class="fas fa-music"></i> Audio & Dialog
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="audioLabel">
+                                <i class="fas fa-volume-up"></i> Suara atau Musik
+                            </label>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn" onclick="setPreset('audio', 'musik jazz lembut di latar belakang')">Jazz Lembut</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('audio', 'suara alam dan burung berkicau')">Suara Alam</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('audio', 'musik akustik yang menenangkan')">Akustik</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('audio', 'musik tradisional Indonesia')">Tradisional</button>
+                            </div>
+                            <input type="text" class="form-control" id="audio" placeholder="Contoh: musik jazz lembut di latar belakang" oninput="updateQuality()">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" id="dialogueLabel">
+                                <i class="fas fa-comment"></i> Kalimat yang Diucapkan
+                            </label>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn" onclick="setPreset('dialogue', 'Hai! Aku senang bertemu kalian!')">Sapaan Ramah</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('dialogue', 'Selamat pagi, semoga hari ini menyenangkan!')">Selamat Pagi</button>
+                                <button type="button" class="preset-btn" onclick="setPreset('dialogue', 'Indonesia indah, mari jaga bersama!')">Cinta Indonesia</button>
+                            </div>
+                            <input type="text" class="form-control" id="dialogue" placeholder="Contoh: 'Hai! Selamat datang di Indonesia yang indah!'" oninput="updateQuality()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div class="advanced-section">
+                <h4 class="section-header" id="detailsHeader">
+                    <i class="fas fa-list"></i> Detail Tambahan
+                </h4>
+                <div class="mb-3">
+                    <label class="form-label fw-bold" id="detailsLabel">
+                        <i class="fas fa-edit"></i> Deskripsi Detail Khusus
+                    </label>
+                    <textarea class="form-control" id="details" rows="4" placeholder="Tambahkan detail spesifik seperti: pakaian yang dikenakan (kemeja putih, celana jeans), aksesori (jam tangan, tas), gerakan tangan, ekspresi mata, detail latar belakang (pohon rindang, mobil klasik), atau elemen khusus lainnya yang ingin Anda sertakan dalam video" oninput="updateQuality()"></textarea>
+                    <div class="character-count" id="detailsCount">0/500 karakter</div>
+                </div>
+            </div>
+
+            <!-- Example Prompts -->
+            <div class="example-prompts">
+                <h5><i class="fas fa-lightbulb"></i> <span id="exampleTitle">Contoh Prompt Populer:</span></h5>
+                <div class="example-item" onclick="loadExample(1)">
+                    <strong>Wanita Indonesia di Taman:</strong> "Seorang wanita muda Indonesia berambut panjang, mengenakan dress putih, berjalan di taman dengan senyuman bahagia..."
+                </div>
+                <div class="example-item" onclick="loadExample(2)">
+                    <strong>Pria Formal di Kota:</strong> "Seorang pria dewasa Indonesia berjas hitam, berjalan percaya diri di jalanan Jakarta modern..."
+                </div>
+                <div class="example-item" onclick="loadExample(3)">
+                    <strong>Anak Sekolah Ceria:</strong> "Seorang anak perempuan Indonesia berseragam sekolah, tersenyum sambil melambaikan tangan..."
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="tips-section">
+                <h5><i class="fas fa-lightbulb"></i> <span id="tipsTitle">Tips untuk Prompt Terbaik:</span></h5>
+                <ul id="tipsList">
+                    <li><strong>Spesifik dan Detail:</strong> Gunakan deskripsi yang spesifik untuk hasil yang lebih akurat</li>
+                    <li><strong>Pilih Wajah yang Sesuai:</strong> Sesuaikan pilihan etnis dengan konteks video Anda</li>
+                    <li><strong>Perhatikan Pencahayaan:</strong> Pencahayaan yang tepat menghasilkan video berkualitas tinggi</li>
+                    <li><strong>Gerakan Kamera Halus:</strong> Pilih gerakan kamera yang smooth untuk hasil profesional</li>
+                    <li><strong>Audio Mendukung:</strong> Audio yang sesuai akan meningkatkan kualitas video secara keseluruhan</li>
+                    <li><strong>Durasi 8 Detik:</strong> Veo 3 menghasilkan video maksimal 8 detik dengan kualitas 1080p</li>
+                </ul>
+            </div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-lg" onclick="generatePrompt()">
+                    <i class="fas fa-magic"></i> <span id="generateBtn">Generate Prompt Profesional</span>
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg ms-3" onclick="resetForm()">
+                    <i class="fas fa-refresh"></i> <span id="resetBtn">Reset Form</span>
+                </button>
+            </div>
+        </form>
+
+        <div id="results" style="display: none;">
+            <h3 class="section-header mt-5" id="resultTitle">
+                <i class="fas fa-file-alt"></i> Hasil Prompt Profesional
+            </h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="result-box">
+                        <h5 class="text-primary mb-3" id="indonesianTitle">
+                            <i class="fas fa-flag"></i> Bahasa Indonesia (Dapat Diedit)
+                        </h5>
+                        <textarea class="form-control" id="indonesianResult" rows="12"></textarea>
+                        <div class="mt-3">
+                            <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard('indonesianResult')">
+                                <i class="fas fa-copy"></i> <span id="copyBtnId">Salin</span>
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="improvePrompt('indonesianResult')">
+                                <i class="fas fa-magic"></i> <span id="improveBtnId">Sempurnakan</span>
+                            </button>
+                            <button class="btn btn-outline-warning btn-sm" onclick="translateToEnglish()">
+                                <i class="fas fa-language"></i> <span id="translateBtn">Terjemahkan</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="result-box">
+                        <h5 class="text-success mb-3" id="englishTitle">
+                            <i class="fas fa-flag"></i> English (Ready for Veo 3)
+                        </h5>
+                        <textarea class="form-control" id="englishResult" rows="12" readonly></textarea>
+                        <div class="mt-3">
+                            <button class="btn btn-outline-success btn-sm" onclick="copyToClipboard('englishResult')">
+                                <i class="fas fa-copy"></i> <span id="copyBtnEn">Copy</span>
+                            </button>
+                            <button class="btn btn-outline-warning btn-sm" onclick="analyzePrompt()">
+                                <i class="fas fa-chart-line"></i> <span id="analyzeBtnEn">Analyze</span>
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="optimizeForVeo3()">
+                                <i class="fas fa-rocket"></i> <span id="optimizeBtn">Optimize</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prompt Analysis -->
+            <div id="promptAnalysis" class="result-box mt-4" style="display: none;">
+                <h5 class="text-info mb-3">
+                    <i class="fas fa-chart-bar"></i> <span id="analysisTitle">Analisis Prompt</span>
+                </h5>
+                <div id="analysisContent"></div>
+            </div>
+
+            <!-- Usage Instructions -->
+            <div class="result-box mt-4">
+                <h5 class="text-warning mb-3">
+                    <i class="fas fa-info-circle"></i> <span id="usageTitle">Cara Menggunakan di Veo 3:</span>
+                </h5>
+                <ol id="usageSteps">
+                    <li><strong>Akses Gemini:</strong> Buka gemini.google.com dengan VPN USA</li>
+                    <li><strong>Login:</strong> Gunakan akun Google AI Pro atau Ultra</li>
+                    <li><strong>Pilih Video:</strong> Klik opsi "Video" di bagian bawah</li>
+                    <li><strong>Paste Prompt:</strong> Salin prompt bahasa Inggris dan paste</li>
+                    <li><strong>Generate:</strong> Klik kirim dan tunggu 3-5 menit</li>
+                    <li><strong>Download:</strong> Video siap diunduh dalam format 1080p atau GIF</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action">
+        <button class="floating-btn" onclick="scrollToTop()" title="Kembali ke atas">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Cache DOM elements
+        const elements = {};
+        
+        // Debounce function for performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Error handling wrapper
+        function handleError(fn) {
+            return function wrapped(...args) {
+                try {
+                    return fn.apply(this, args);
+                } catch (error) {
+                    console.error('An error occurred:', error);
+                    alert(currentLanguage === 'id' ? 
+                        'Terjadi kesalahan. Silakan coba lagi.' : 
+                        'An error occurred. Please try again.');
+                }
+            };
+        }
+        
+        // Initialize elements cache
+        function initializeElements() {
+            const elementIds = [
+                'langToggleText', 'subtitle', 'qualityLabel', 'qualityFill', 
+                'qualityText', 'gender', 'age', 'appearance', 'subject', 
+                'action', 'location', 'audio', 'dialogue', 'details'
+            ];
+            
+            elementIds.forEach(id => {
+                elements[id] = document.getElementById(id);
+            });
+        }
+        
+        // Optimized updateQuality function
+        const updateQuality = debounce(handleError(() => {
+            const fields = [
+                'subject', 'action', 'location', 'time', 'camera', 'lighting', 
+                'style', 'mood', 'audio', 'details', 'expression', 'emotion'
+            ];
+            let filledFields = 0;
+            let totalFields = fields.length + (selectedFaceType ? 1 : 0);
+            
+            fields.forEach(field => {
+                const element = elements[field] || document.getElementById(field);
+                if (element?.value && element.value.length > 10) filledFields++;
+            });
+            
+            if (selectedFaceType) filledFields++;
+            
+            // Increase base quality to ensure minimum 80%
+            const baseQuality = 80;
+            const additionalQuality = Math.round((filledFields / totalFields) * 20);
+            const quality = Math.min(100, baseQuality + additionalQuality);
+            
+            elements.qualityFill.style.width = quality + '%';
+            elements.qualityText.textContent = quality + '%';
+            elements.qualityText.setAttribute('aria-valuenow', quality);
+            
+            // Update character counters with higher minimums
+            updateCharacterCount('subject', 150, 50);
+            updateCharacterCount('action', 150, 50);
+            updateCharacterCount('details', 500, 100);
+            
+            // Add quality indicator color
+            const qualityColor = quality >= 90 ? '#28a745' : quality >= 85 ? '#17a2b8' : '#ffc107';
+            elements.qualityFill.style.backgroundColor = qualityColor;
+        }), 250);
+        
+        // Enhanced character count function
+        function updateCharacterCount(fieldId, maxLength, minLength) {
+            const field = elements[fieldId] || document.getElementById(fieldId);
+            const counter = document.getElementById(fieldId + 'Count');
+            if (field && counter) {
+                const currentLength = field.value.length;
+                const color = currentLength < minLength ? '#dc3545' : 
+                             currentLength > maxLength ? '#dc3545' : '#28a745';
+                counter.textContent = `${currentLength}/${maxLength} karakter (min: ${minLength})`;
+                counter.style.color = color;
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', handleError(() => {
+            initializeElements();
+            updateQuality();
+            
+            // Add input listeners for character counting
+            ['subject', 'action', 'details'].forEach(fieldId => {
+                const field = elements[fieldId] || document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', updateQuality);
+                }
+            });
+            
+            // Add error boundary for translations
+            window.addEventListener('error', (event) => {
+                console.error('Translation error:', event.error);
+                alert(currentLanguage === 'id' ? 
+                    'Terjadi kesalahan dalam terjemahan. Silakan coba lagi.' : 
+                    'A translation error occurred. Please try again.');
+            });
+        }));
+        
+        let currentLanguage = 'id';
+        let selectedFaceType = '';
+        
+        const translations = {
+            id: {
+                subtitle: "Generator Prompt Profesional untuk Google Veo 3 AI dengan Fitur Lengkap",
+                faceTypeHeader: "Pilihan Wajah & Etnis",
+                indonesianFace: "Wajah Indonesia",
+                indonesianDesc: "Fitur Asia Tenggara",
+                asianFace: "Wajah Asia",
+                asianDesc: "Asia Timur & Selatan",
+                westernFace: "Wajah Barat",
+                westernDesc: "Eropa & Amerika",
+                mixedFace: "Campuran",
+                mixedDesc: "Multi-etnis",
+                basicInfoHeader: "Informasi Dasar",
+                genderLabel: "Jenis Kelamin",
+                ageLabel: "Usia",
+                appearanceLabel: "Penampilan",
+                subjectLabel: "Deskripsi Subjek",
+                actionLabel: "Aksi & Gerakan",
+                emotionHeader: "Ekspresi & Emosi",
+                expressionLabel: "Ekspresi Wajah",
+                emotionLabel: "Suasana Hati",
+                locationHeader: "Lokasi & Lingkungan",
+                locationLabel: "Tempat",
+                environmentLabel: "Suasana Lingkungan",
+                technicalHeader: "Pengaturan Teknis",
+                timeLabel: "Waktu",
+                cameraLabel: "Gerakan Kamera",
+                lightingLabel: "Pencahayaan",
+                styleHeader: "Gaya & Suasana Video",
+                styleLabel: "Gaya Video",
+                moodLabel: "Suasana Video",
+                audioHeader: "Audio & Dialog",
+                audioLabel: "Suara atau Musik",
+                dialogueLabel: "Kalimat yang Diucapkan",
+                detailsHeader: "Detail Tambahan",
+                detailsLabel: "Deskripsi Detail Khusus",
+                generateBtn: "Generate Prompt Profesional",
+                resetBtn: "Reset Form",
+                resultTitle: "Hasil Prompt Profesional",
+                indonesianTitle: "Bahasa Indonesia (Dapat Diedit)",
+                englishTitle: "English (Ready for Veo 3)",
+                copyBtnId: "Salin",
+                copyBtnEn: "Copy",
+                improveBtnId: "Sempurnakan",
+                translateBtn: "Terjemahkan",
+                analyzeBtnEn: "Analyze",
+                optimizeBtn: "Optimize",
+                analysisTitle: "Analisis Prompt",
+                exampleTitle: "Contoh Prompt Populer:",
+                tipsTitle: "Tips untuk Prompt Terbaik:",
+                usageTitle: "Cara Menggunakan di Veo 3:",
+                qualityLabel: "Kualitas Prompt:",
+                langToggleText: "English"
+            },
+            en: {
+                subtitle: "Professional Prompt Generator for Google Veo 3 AI with Complete Features",
+                faceTypeHeader: "Face & Ethnicity Selection",
+                indonesianFace: "Indonesian Face",
+                indonesianDesc: "Southeast Asian Features",
+                asianFace: "Asian Face",
+                asianDesc: "East & South Asian",
+                westernFace: "Western Face",
+                westernDesc: "European & American",
+                mixedFace: "Mixed",
+                mixedDesc: "Multi-ethnic",
+                basicInfoHeader: "Basic Information",
+                genderLabel: "Gender",
+                ageLabel: "Age",
+                appearanceLabel: "Appearance",
+                subjectLabel: "Subject Description",
+                actionLabel: "Action & Movement",
+                emotionHeader: "Expression & Emotion",
+                expressionLabel: "Facial Expression",
+                emotionLabel: "Mood",
+                locationHeader: "Location & Environment",
+                locationLabel: "Location",
+                environmentLabel: "Environment Mood",
+                technicalHeader: "Technical Settings",
+                timeLabel: "Time",
+                cameraLabel: "Camera Movement",
+                lightingLabel: "Lighting",
+                styleHeader: "Style & Video Mood",
+                styleLabel: "Video Style",
+                moodLabel: "Video Mood",
+                audioHeader: "Audio & Dialogue",
+                audioLabel: "Sound or Music",
+                dialogueLabel: "Spoken Dialogue",
+                detailsHeader: "Additional Details",
+                detailsLabel: "Specific Detail Description",
+                generateBtn: "Generate Professional Prompt",
+                resetBtn: "Reset Form",
+                resultTitle: "Professional Prompt Results",
+                indonesianTitle: "Indonesian (Editable)",
+                englishTitle: "English (Ready for Veo 3)",
+                copyBtnId: "Copy",
+                copyBtnEn: "Copy",
+                improveBtnId: "Improve",
+                translateBtn: "Translate",
+                analyzeBtnEn: "Analyze",
+                optimizeBtn: "Optimize",
+                analysisTitle: "Prompt Analysis",
+                exampleTitle: "Popular Prompt Examples:",
+                tipsTitle: "Tips for Best Prompts:",
+                usageTitle: "How to Use in Veo 3:",
+                qualityLabel: "Prompt Quality:",
+                langToggleText: "Indonesia"
+            }
+        };
+
+        // Example prompts data
+        const examplePrompts = {
+            1: {
+                subject: "seorang wanita muda Indonesia berambut panjang",
+                action: "berjalan santai sambil tersenyum",
+                expression: "senyuman bahagia",
+                location: "di taman kota yang hijau",
+                time: "sore hari",
+                lighting: "golden hour lighting",
+                style: "cinematic",
+                mood: "peaceful",
+                audio: "musik akustik yang menenangkan",
+                details: "mengenakan dress putih, dengan bunga-bunga di sekitar"
+            },
+            2: {
+                subject: "seorang pria dewasa Indonesia",
+                action: "berjalan percaya diri",
+                expression: "ekspresi percaya diri",
+                location: "di jalanan Jakarta modern",
+                time: "pagi hari",
+                lighting: "natural lighting",
+                style: "modern",
+                mood: "energetic",
+                appearance: "formal",
+                details: "mengenakan jas hitam, dengan gedung-gedung tinggi di latar belakang"
+            },
+            3: {
+                subject: "seorang anak perempuan Indonesia",
+                action: "tersenyum sambil melambaikan tangan",
+                expression: "senyuman bahagia",
+                location: "di halaman sekolah",
+                time: "pagi hari",
+                lighting: "soft lighting",
+                style: "cheerful",
+                mood: "cheerful",
+                appearance: "kasual",
+                details: "mengenakan seragam sekolah, dengan tas ransel"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'id' ? 'en' : 'id';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLanguage];
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (key.includes('Label') || key.includes('Header')) {
+                        const icon = element.querySelector('i');
+                        const iconClass = icon ? icon.className : '';
+                        element.innerHTML = iconClass ? `<i class="${iconClass}"></i> ${t[key]}` : t[key];
+                    } else {
+                        element.textContent = t[key];
+                    }
+                }
+            });
+        }
+
+        function selectFaceType(type) {
+            selectedFaceType = type;
+            document.querySelectorAll('.face-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            updateQuality();
+        }
+
+        function setPreset(fieldId, value) {
+            document.getElementById(fieldId).value = value;
+            updateQuality();
+        }
+
+        function loadExample(exampleId) {
+            const example = examplePrompts[exampleId];
+            if (example) {
+                Object.keys(example).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = example[key];
+                    }
+                });
+                
+                // Set face type to Indonesian for examples
+                selectFaceType('indonesian');
+                document.querySelector('[onclick="selectFaceType(\'indonesian\')"]').classList.add('selected');
+                
+                updateQuality();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('promptForm').reset();
+            selectedFaceType = '';
+            document.querySelectorAll('.face-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById('results').style.display = 'none';
+            updateQuality();
+        }
+
+        function generatePrompt() {
+            const formData = {
+                gender: document.getElementById('gender').value,
+                age: document.getElementById('age').value,
+                appearance: document.getElementById('appearance').value,
+                subject: document.getElementById('subject').value,
+                action: document.getElementById('action').value,
+                expression: document.getElementById('expression').value,
+                emotion: document.getElementById('emotion').value,
+                location: document.getElementById('location').value,
+                environment: document.getElementById('environment').value,
+                time: document.getElementById('time').value,
+                camera: document.getElementById('camera').value,
+                lighting: document.getElementById('lighting').value,
+                style: document.getElementById('style').value,
+                mood: document.getElementById('mood').value,
+                audio: document.getElementById('audio').value,
+                dialogue: document.getElementById('dialogue').value,
+                details: document.getElementById('details').value
+            };
+
+            if (!formData.subject || !formData.action) {
+                alert(currentLanguage === 'id' ? 'Harap isi minimal subjek dan aksi!' : 'Please fill in at least subject and action!');
+                return;
+            }
+
+            // Generate Indonesian prompt
+            let indonesianPrompt = buildIndonesianPrompt(formData);
+            
+            // Generate English prompt
+            let englishPrompt = buildEnglishPrompt(formData);
+
+            document.getElementById('indonesianResult').value = indonesianPrompt;
+            document.getElementById('englishResult').value = englishPrompt;
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function buildIndonesianPrompt(data) {
+            let prompt = '';
+            
+            // Face type integration
+            if (selectedFaceType) {
+                const faceDescriptions = {
+                    'indonesian': 'dengan wajah khas Indonesia',
+                    'asian': 'dengan fitur wajah Asia',
+                    'western': 'dengan wajah Barat',
+                    'mixed': 'dengan wajah campuran multi-etnis'
+                };
+                
+                if (data.subject) {
+                    prompt += `${data.subject} ${faceDescriptions[selectedFaceType]}`;
+                } else {
+                    prompt += `Seseorang ${faceDescriptions[selectedFaceType]}`;
+                }
+            } else {
+                prompt += data.subject || 'Seseorang';
+            }
+            
+            // Add basic info
+            if (data.gender && data.age) {
+                prompt += `, ${data.gender} ${data.age}`;
+            } else if (data.gender) {
+                prompt += `, ${data.gender}`;
+            } else if (data.age) {
+                prompt += `, berusia ${data.age}`;
+            }
+            
+            if (data.appearance) {
+                prompt += ` berpenampilan ${data.appearance}`;
+            }
+            
+            // Add action
+            if (data.action) {
+                prompt += `, ${data.action}`;
+            }
+            
+            // Add expression and emotion
+            if (data.expression) {
+                prompt += ` dengan ${data.expression}`;
+            }
+            if (data.emotion) {
+                prompt += ` dalam suasana hati ${data.emotion}`;
+            }
+            
+            // Add location
+            if (data.location) {
+                prompt += ` ${data.location}`;
+            }
+            if (data.environment) {
+                prompt += ` dengan suasana lingkungan yang ${data.environment}`;
+            }
+            
+            // Add time
+            if (data.time) {
+                prompt += ` pada ${data.time}`;
+            }
+            
+            // Add technical details
+            if (data.camera) {
+                prompt += `. Gunakan teknik kamera ${data.camera}`;
+            }
+            if (data.lighting) {
+                prompt += ` dengan ${data.lighting}`;
+            }
+            
+            // Add style and mood
+            if (data.style) {
+                prompt += `. Gaya video: ${data.style}`;
+            }
+            if (data.mood) {
+                prompt += ` dengan suasana ${data.mood}`;
+            }
+            
+            // Add audio
+            if (data.audio) {
+                prompt += `. Audio: ${data.audio}`;
+            }
+            
+            // Add dialogue
+            if (data.dialogue) {
+                prompt += `. Dialog: "${data.dialogue}"`;
+            }
+            
+            // Add additional details
+            if (data.details) {
+                prompt += `. Detail tambahan: ${data.details}`;
+            }
+            
+            return prompt;
+        }
+
+                function buildEnglishPrompt(data) {
+            let prompt = '';
+            
+            // Face type integration
+            if (selectedFaceType) {
+                const faceDescriptions = {
+                    'indonesian': 'with Indonesian facial features',
+                    'asian': 'with Asian facial features',
+                    'western': 'with Western facial features',
+                    'mixed': 'with mixed multi-ethnic features'
+                };
+                
+                if (data.subject) {
+                    prompt += `${translateToEnglish(data.subject)} ${faceDescriptions[selectedFaceType]}`;
+                } else {
+                    prompt += `A person ${faceDescriptions[selectedFaceType]}`;
+                }
+            } else {
+                prompt += translateToEnglish(data.subject) || 'A person';
+            }
+            
+            // Add basic info
+            if (data.gender && data.age) {
+                prompt += `, ${translateGender(data.gender)} ${translateAge(data.age)}`;
+            } else if (data.gender) {
+                prompt += `, ${translateGender(data.gender)}`;
+            } else if (data.age) {
+                prompt += `, ${translateAge(data.age)}`;
+            }
+            
+            if (data.appearance) {
+                prompt += ` with ${translateAppearance(data.appearance)} appearance`;
+            }
+            
+            // Add action
+            if (data.action) {
+                prompt += `, ${translateToEnglish(data.action)}`;
+            }
+            
+            // Add expression and emotion
+            if (data.expression) {
+                prompt += ` with ${translateExpression(data.expression)}`;
+            }
+            if (data.emotion) {
+                prompt += ` in a ${translateEmotion(data.emotion)} mood`;
+            }
+            
+            // Add location
+            if (data.location) {
+                prompt += ` ${translateToEnglish(data.location)}`;
+            }
+            if (data.environment) {
+                prompt += ` with ${translateEnvironment(data.environment)} atmosphere`;
+            }
+            
+            // Add time
+            if (data.time) {
+                prompt += ` during ${translateTime(data.time)}`;
+            }
+            
+            // Add technical details
+            if (data.camera) {
+                prompt += `. Use ${data.camera} camera technique`;
+            }
+            if (data.lighting) {
+                prompt += ` with ${data.lighting}`;
+            }
+            
+            // Add style and mood
+            if (data.style) {
+                prompt += `. Video style: ${data.style}`;
+            }
+            if (data.mood) {
+                prompt += ` with ${data.mood} mood`;
+            }
+            
+            // Add audio
+            if (data.audio) {
+                prompt += `. Audio: ${translateToEnglish(data.audio)}`;
+            }
+            
+            // Add dialogue
+            if (data.dialogue) {
+                prompt += `. Dialogue: "${data.dialogue}"`;
+            }
+            
+            // Add additional details
+            if (data.details) {
+                prompt += `. Additional details: ${translateToEnglish(data.details)}`;
+            }
+            
+            return prompt;
+        }
+
+        // Translation helper functions
+        function translateToEnglish(text) {
+            if (!text) return '';
+            
+            const translations = {
+                'seorang wanita muda': 'a young woman',
+                'seorang pria': 'a man',
+                'seorang pria dewasa': 'an adult man',
+                'seorang anak': 'a child',
+                'seorang anak perempuan': 'a girl',
+                'seorang remaja': 'a teenager',
+                'sedang berjalan': 'walking',
+                'berjalan santai': 'walking casually',
+                'berjalan percaya diri': 'walking confidently',
+                'berlari': 'running',
+                'duduk': 'sitting',
+                'berdiri': 'standing',
+                'menari': 'dancing',
+                'tersenyum sambil melambaikan tangan': 'smiling while waving',
+                'berbicara ke kamera': 'speaking to the camera',
+                'di taman': 'in the park',
+                'di taman kota': 'in the city park',
+                'di pantai': 'at the beach',
+                'di pantai Bali': 'at Bali beach',
+                'di hutan': 'in the forest',
+                'di kafe modern': 'in a modern cafe',
+                'di jalanan Jakarta': 'on Jakarta streets',
+                'di halaman sekolah': 'in the school yard',
+                'musik jazz lembut': 'soft jazz music',
+                'musik akustik': 'acoustic music',
+                'suara alam': 'nature sounds',
+                'musik tradisional Indonesia': 'traditional Indonesian music'
+            };
+            
+            return translations[text.toLowerCase()] || text;
+        }
+
+        function translateGender(gender) {
+            const translations = {
+                'pria': 'man',
+                'wanita': 'woman',
+                'anak laki-laki': 'boy',
+                'anak perempuan': 'girl'
+            };
+            return translations[gender] || gender;
+        }
+
+        function translateAge(age) {
+            const translations = {
+                'anak-anak (5-12 tahun)': 'child (5-12 years old)',
+                'remaja (13-19 tahun)': 'teenager (13-19 years old)',
+                'dewasa muda (20-35 tahun)': 'young adult (20-35 years old)',
+                'dewasa (36-50 tahun)': 'adult (36-50 years old)',
+                'paruh baya (51-65 tahun)': 'middle-aged (51-65 years old)',
+                'lansia (65+ tahun)': 'elderly (65+ years old)'
+            };
+            return translations[age] || age;
+        }
+
+        function translateAppearance(appearance) {
+            const translations = {
+                'kasual': 'casual',
+                'formal': 'formal',
+                'tradisional': 'traditional',
+                'sporty': 'sporty',
+                'elegant': 'elegant',
+                'bohemian': 'bohemian'
+            };
+            return translations[appearance] || appearance;
+        }
+
+        function translateExpression(expression) {
+            const translations = {
+                'senyuman bahagia': 'a happy smile',
+                'senyuman lembut': 'a gentle smile',
+                'tertawa lepas': 'laughing freely',
+                'wajah serius': 'a serious face',
+                'ekspresi terkejut': 'a surprised expression',
+                'wajah penuh konsentrasi': 'a concentrated face',
+                'ekspresi misterius': 'a mysterious expression',
+                'wajah tenang dan damai': 'a calm and peaceful face',
+                'mata berbinar-binar': 'sparkling eyes',
+                'ekspresi percaya diri': 'a confident expression'
+            };
+            return translations[expression] || expression;
+        }
+
+        function translateEmotion(emotion) {
+            const translations = {
+                'gembira': 'joyful',
+                'damai': 'peaceful',
+                'percaya diri': 'confident',
+                'romantis': 'romantic',
+                'energik': 'energetic',
+                'contemplatif': 'contemplative',
+                'playful': 'playful',
+                'elegan': 'elegant',
+                'inspiratif': 'inspirational',
+                'nostalgia': 'nostalgic'
+            };
+            return translations[emotion] || emotion;
+        }
+
+        function translateEnvironment(environment) {
+            const translations = {
+                'ramai dan hidup': 'lively and bustling',
+                'tenang dan damai': 'quiet and peaceful',
+                'romantis': 'romantic',
+                'urban modern': 'modern urban',
+                'alami dan asri': 'natural and serene',
+                'vintage klasik': 'vintage classic',
+                'futuristik': 'futuristic',
+                'tradisional Indonesia': 'traditional Indonesian'
+            };
+            return translations[environment] || environment;
+        }
+
+        function translateTime(time) {
+            const translations = {
+                'pagi hari': 'morning',
+                'siang hari': 'afternoon',
+                'sore hari': 'evening',
+                'malam hari': 'night',
+                'fajar': 'dawn',
+                'senja': 'dusk',
+                'tengah malam': 'midnight',
+                'golden hour': 'golden hour',
+                'blue hour': 'blue hour'
+            };
+            return translations[time] || time;
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            element.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = currentLanguage === 'id' ? 'Tersalin!' : 'Copied!';
+                button.classList.add('btn-success');
+                button.classList.remove('btn-outline-primary', 'btn-outline-success');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('btn-success');
+                    button.classList.add(elementId === 'indonesianResult' ? 'btn-outline-primary' : 'btn-outline-success');
+                }, 2000);
+            } catch (err) {
+                // Fallback for modern browsers
+                navigator.clipboard.writeText(element.value);
+                alert(currentLanguage === 'id' ? 'Teks telah disalin!' : 'Text copied!');
+            }
+        }
+
+        function improvePrompt(elementId) {
+            const textarea = document.getElementById(elementId);
+            let currentPrompt = textarea.value;
+            
+            if (!currentPrompt) {
+                alert(currentLanguage === 'id' ? 'Harap generate prompt terlebih dahulu!' : 'Please generate a prompt first!');
+                return;
+            }
+            
+            // Add improvement suggestions
+            const improvements = [
+                'dengan detail yang lebih tajam dan realistis',
+                'pencahayaan sinematik yang sempurna',
+                'komposisi visual yang seimbang dan menarik',
+                'gerakan yang natural dan halus',
+                'ekspresi wajah yang lebih hidup',
+                'background yang mendukung suasana'
+            ];
+            
+            const randomImprovement = improvements[Math.floor(Math.random() * improvements.length)];
+            if (!currentPrompt.includes(randomImprovement)) {
+                textarea.value = currentPrompt + ', ' + randomImprovement;
+                
+                // Update English version if improving Indonesian
+                if (elementId === 'indonesianResult') {
+                    translateToEnglishResult();
+                }
+            }
+        }
+
+        function analyzePrompt() {
+            const prompt = document.getElementById('englishResult').value;
+            const analysisDiv = document.getElementById('promptAnalysis');
+            const contentDiv = document.getElementById('analysisContent');
+            
+            if (!prompt) {
+                alert(currentLanguage === 'id' ? 'Tidak ada prompt untuk dianalisis!' : 'No prompt to analyze!');
+                return;
+            }
+            
+            // Detailed analysis
+            const wordCount = prompt.split(' ').length;
+            const hasSubject = prompt.toLowerCase().includes('person') || prompt.toLowerCase().includes('woman') || prompt.toLowerCase().includes('man') || prompt.toLowerCase().includes('child');
+            const hasAction = prompt.toLowerCase().includes('walking') || prompt.toLowerCase().includes('sitting') || prompt.toLowerCase().includes('running') || prompt.toLowerCase().includes('dancing') || prompt.toLowerCase().includes('smiling');
+            const hasLocation = prompt.toLowerCase().includes('in ') || prompt.toLowerCase().includes('at ') || prompt.toLowerCase().includes('on ');
+            const hasTechnical = prompt.toLowerCase().includes('camera') || prompt.toLowerCase().includes('lighting');
+            const hasEmotion = prompt.toLowerCase().includes('happy') || prompt.toLowerCase().includes('smile') || prompt.toLowerCase().includes('mood');
+            const hasDetails = prompt.toLowerCase().includes('details') || prompt.toLowerCase().includes('wearing') || prompt.toLowerCase().includes('with');
+            
+            let score = 0;
+            if (hasSubject) score += 20;
+            if (hasAction) score += 20;
+            if (hasLocation) score += 15;
+            if (hasTechnical) score += 15;
+            if (hasEmotion) score += 15;
+            if (hasDetails) score += 15;
+            
+            // Quality assessment
+            let qualityText = '';
+            let qualityColor = '';
+            if (score >= 85) {
+                qualityText = currentLanguage === 'id' ? 'Excellent! Prompt sangat lengkap dan detail' : 'Excellent! Very complete and detailed prompt';
+                qualityColor = 'success';
+            } else if (score >= 70) {
+                qualityText = currentLanguage === 'id' ? 'Good! Prompt bagus, bisa ditingkatkan sedikit' : 'Good! Nice prompt, can be slightly improved';
+                qualityColor = 'info';
+            } else if (score >= 50) {
+                qualityText = currentLanguage === 'id' ? 'Fair! Perlu lebih banyak detail' : 'Fair! Needs more details';
+                qualityColor = 'warning';
+            } else {
+                qualityText = currentLanguage === 'id' ? 'Poor! Perlu banyak perbaikan' : 'Poor! Needs significant improvement';
+                qualityColor = 'danger';
+            }
+            
+            contentDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>${currentLanguage === 'id' ? 'Statistik Prompt:' : 'Prompt Statistics:'}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-word"></i> ${currentLanguage === 'id' ? 'Jumlah kata:' : 'Word count:'} <strong>${wordCount}</strong></li>
+                            <li><i class="fas fa-user"></i> ${currentLanguage === 'id' ? 'Subjek:' : 'Subject:'} ${hasSubject ? '<span class="text-success">✅</span>' : '<span class="text-danger">❌</span>'}</li>
+                            <li><i class="fas fa-running"></i> ${currentLanguage === 'id' ? 'Aksi:' : 'Action:'} ${hasAction ? '<span class="text-success">✅</span>' : '<span class="text-danger">❌</span>'}</li>
+                            <li><i class="fas fa-map-marker"></i> ${currentLanguage === 'id' ? 'Lokasi:' : 'Location:'} ${hasLocation ? '<span class="text-success">✅</span>' : '<span class="text-danger">❌</span>'}</li>
+                            <li><i class="fas fa-cog"></i> ${currentLanguage === 'id' ? 'Detail Teknis:' : 'Technical Details:'} ${hasTechnical ? '<span class="text-success">✅</span>' : '<span class="text-danger">❌</span>'}</li>
+                            <li><i class="fas fa-heart"></i> ${currentLanguage === 'id' ? 'Emosi:' : 'Emotion:'} ${hasEmotion ? '<span class="text-success">✅</span>' : '<span class="text-danger">❌</span>'}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>${currentLanguage === 'id' ? 'Skor Kualitas:' : 'Quality Score:'}</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-${qualityColor}" style="width: ${score}%">${score}%</div>
+                        </div>
+                        <div class="alert alert-${qualityColor} p-2">
+                            <small><strong>${qualityText}</strong></small>
+                        </div>
+                        <h6>${currentLanguage === 'id' ? 'Rekomendasi:' : 'Recommendations:'}</h6>
+                        <ul class="small">
+                            ${!hasSubject ? `<li>${currentLanguage === 'id' ? 'Tambahkan deskripsi subjek yang jelas' : 'Add clear subject description'}</li>` : ''}
+                            ${!hasAction ? `<li>${currentLanguage === 'id' ? 'Sertakan aksi atau gerakan' : 'Include action or movement'}</li>` : ''}
+                            ${!hasLocation ? `<li>${currentLanguage === 'id' ? 'Tentukan lokasi atau setting' : 'Specify location or setting'}</li>` : ''}
+                            ${!hasTechnical ? `<li>${currentLanguage === 'id' ? 'Tambahkan detail kamera/pencahayaan' : 'Add camera/lighting details'}</li>` : ''}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            analysisDiv.style.display = 'block';
+        }
+
+        function optimizeForVeo3() {
+            const englishPrompt = document.getElementById('englishResult').value;
+            
+            if (!englishPrompt) {
+                alert(currentLanguage === 'id' ? 'Tidak ada prompt untuk dioptimasi!' : 'No prompt to optimize!');
+                return;
+            }
+            
+            // Optimization for Veo 3 specific requirements
+            let optimizedPrompt = englishPrompt;
+            
+            // Add Veo 3 specific optimizations
+            if (!optimizedPrompt.includes('8 seconds')) {
+                optimizedPrompt += '. 8-second video duration';
+            }
+            
+            if (!optimizedPrompt.includes('1080p') && !optimizedPrompt.includes('high quality')) {
+                optimizedPrompt += ', high quality 1080p resolution';
+            }
+            
+            if (!optimizedPrompt.includes('smooth') && !optimizedPrompt.includes('fluid')) {
+                optimizedPrompt += ', smooth and fluid motion';
+            }
+            
+            document.getElementById('englishResult').value = optimizedPrompt;
+            
+            alert(currentLanguage === 'id' ? 'Prompt telah dioptimasi untuk Veo 3!' : 'Prompt has been optimized for Veo 3!');
+        }
+
+        function translateToEnglishResult() {
+            const indonesianText = document.getElementById('indonesianResult').value;
+            
+            if (!indonesianText) {
+                alert(currentLanguage === 'id' ? 'Tidak ada teks untuk diterjemahkan!' : 'No text to translate!');
+                return;
+            }
+            
+            // Enhanced translation logic
+            let englishText = indonesianText;
+            
+            // Apply all translation functions
+            Object.keys(translations.id).forEach(key => {
+                const indonesianPhrase = translations.id[key];
+                const englishPhrase = translations.en[key];
+                englishText = englishText.replace(new RegExp(indonesianPhrase, 'gi'), englishPhrase);
+            });
+            
+            document.getElementById('englishResult').value = englishText;
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Auto-update Indonesian to English with debounce
+        let translationTimeout;
+        document.addEventListener('DOMContentLoaded', function() {
+            const indonesianResult = document.getElementById('indonesianResult');
+            if (indonesianResult) {
+                indonesianResult.addEventListener('input', function() {
+                    clearTimeout(translationTimeout);
+                    translationTimeout = setTimeout(() => {
+                        translateToEnglishResult();
+                    }, 1000); // Wait 1 second after user stops typing
+                });
+            }
+            
+            updateQuality();
+            
+            // Add input listeners for character counting
+            ['subject', 'action', 'details'].forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', updateQuality);
+                }
+            });
+        });
+
+        // Preset data
+        const presetCategories = {
+            creative: {
+                name: { id: "Kreatif", en: "Creative" },
+                presets: {
+                    artist: {
+                        id: "Seniman",
+                        en: "Artist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "bohemian",
+                            subject: "seorang seniman wanita dengan rambut panjang bergelombang",
+                            action: "melukis dengan penuh inspirasi",
+                            expression: "ekspresi penuh konsentrasi",
+                            emotion: "contemplatif",
+                            location: "di studio seni yang penuh warna",
+                            environment: "artistic",
+                            lighting: "natural lighting",
+                            camera: "slow pan right",
+                            style: "artistic",
+                            mood: "inspiring",
+                            audio: "musik instrumental yang lembut",
+                            details: "mengenakan celemek putih dengan noda cat, kanvas besar di hadapannya, kuas dan palet di tangan"
+                        }
+                    },
+                    musician: {
+                        id: "Musisi",
+                        en: "Musician",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "kasual",
+                            subject: "seorang musisi pria dengan gitar akustik",
+                            action: "memainkan gitar dengan penuh perasaan",
+                            expression: "ekspresi penuh penghayatan",
+                            emotion: "damai",
+                            location: "di taman kota yang asri",
+                            environment: "tenang dan damai",
+                            lighting: "golden hour lighting",
+                            camera: "slow dolly in",
+                            style: "cinematic",
+                            mood: "peaceful",
+                            audio: "alunan gitar akustik",
+                            details: "cahaya senja menyinari wajah, daun-daun bergerak lembut tertiup angin"
+                        }
+                    },
+                    dancer: {
+                        id: "Penari",
+                        en: "Dancer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "elegant",
+                            subject: "seorang penari kontemporer yang anggun",
+                            action: "menari dengan gerakan mengalir",
+                            expression: "ekspresi penuh penghayatan",
+                            emotion: "contemplatif",
+                            location: "di studio tari minimalis",
+                            environment: "artistic",
+                            lighting: "dramatic lighting",
+                            camera: "slow dolly circular",
+                            style: "artistic",
+                            mood: "ethereal",
+                            audio: "musik kontemporer yang mengalir",
+                            details: "mengenakan kostum putih yang mengalir, gerakan tangan yang lembut, cahaya dramatic dari samping"
+                        }
+                    }
+                }
+            },
+            professional: {
+                name: { id: "Profesional", en: "Professional" },
+                presets: {
+                    executive: {
+                        id: "Eksekutif",
+                        en: "Executive",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "formal",
+                            subject: "seorang eksekutif wanita dengan blazer modern",
+                            action: "berjalan dengan penuh percaya diri",
+                            expression: "ekspresi percaya diri",
+                            emotion: "percaya diri",
+                            location: "di gedung perkantoran modern",
+                            environment: "urban modern",
+                            lighting: "natural lighting",
+                            camera: "tracking shot",
+                            style: "modern",
+                            mood: "professional",
+                            audio: "musik corporate yang dinamis",
+                            details: "membawa tablet, latar belakang gedung pencakar langit dengan kaca-kaca yang memantulkan cahaya"
+                        }
+                    },
+                    teacher: {
+                        id: "Guru",
+                        en: "Teacher",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart casual",
+                            subject: "seorang guru muda yang ramah",
+                            action: "menjelaskan dengan antusias",
+                            expression: "senyuman lembut",
+                            emotion: "inspiratif",
+                            location: "di ruang kelas modern",
+                            environment: "educational",
+                            lighting: "soft lighting",
+                            camera: "slow pan left",
+                            style: "documentary",
+                            mood: "cheerful",
+                            audio: "musik lembut yang menyemangati",
+                            details: "menggunakan papan tulis interaktif, siswa terlihat antusias di latar belakang"
+                        }
+                    }
+                }
+            },
+            lifestyle: {
+                name: { id: "Gaya Hidup", en: "Lifestyle" },
+                presets: {
+                    yoga: {
+                        id: "Instruktur Yoga",
+                        en: "Yoga Instructor",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "sporty",
+                            subject: "seorang instruktur yoga yang anggun",
+                            action: "melakukan pose yoga dengan sempurna",
+                            expression: "wajah tenang dan damai",
+                            emotion: "damai",
+                            location: "di studio yoga minimalis",
+                            environment: "zen",
+                            lighting: "soft natural lighting",
+                            camera: "slow dolly",
+                            style: "minimalist",
+                            mood: "peaceful",
+                            audio: "musik meditasi yang menenangkan",
+                            details: "mengenakan pakaian yoga putih, karpet yoga ungu, tanaman hijau di sekitar"
+                        }
+                    },
+                    chef: {
+                        id: "Koki",
+                        en: "Chef",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "professional",
+                            subject: "seorang chef profesional",
+                            action: "memasak dengan cekatan",
+                            expression: "ekspresi fokus dan bersemangat",
+                            emotion: "energik",
+                            location: "di dapur profesional",
+                            environment: "busy kitchen",
+                            lighting: "studio lighting",
+                            camera: "tracking shot",
+                            style: "documentary",
+                            mood: "energetic",
+                            audio: "suara aktivitas dapur yang dinamis",
+                            details: "mengenakan seragam chef putih, api kompor menyala di latar belakang, bahan makanan segar tersusun rapi"
+                        }
+                    }
+                }
+            },
+            traditional: {
+                name: { id: "Tradisional", en: "Traditional" },
+                presets: {
+                    batik: {
+                        id: "Pengrajin Batik",
+                        en: "Batik Artisan",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "tradisional",
+                            subject: "seorang pengrajin batik yang terampil",
+                            action: "membatik dengan teliti",
+                            expression: "ekspresi fokus dan tenang",
+                            emotion: "damai",
+                            location: "di workshop batik tradisional",
+                            environment: "tradisional Indonesia",
+                            lighting: "natural lighting",
+                            camera: "slow pan detail",
+                            style: "documentary",
+                            mood: "peaceful",
+                            audio: "musik gamelan lembut",
+                            details: "mengenakan kebaya tradisional, membuat motif batik di atas kain, asap lilin malam mengepul lembut"
+                        }
+                    },
+                    gamelan: {
+                        id: "Pemain Gamelan",
+                        en: "Gamelan Player",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "tradisional",
+                            subject: "seorang maestro gamelan",
+                            action: "memainkan gamelan dengan khusyuk",
+                            expression: "ekspresi penuh penghayatan",
+                            emotion: "contemplatif",
+                            location: "di pendopo Jawa",
+                            environment: "tradisional Indonesia",
+                            lighting: "warm lighting",
+                            camera: "slow dolly",
+                            style: "cinematic",
+                            mood: "serene",
+                            audio: "alunan gamelan Jawa",
+                            details: "mengenakan pakaian Jawa lengkap, cahaya senja menembus tiang pendopo"
+                        }
+                    }
+                }
+            },
+            modern: {
+                name: { id: "Modern", en: "Modern" },
+                presets: {
+                    techie: {
+                        id: "Tech Enthusiast",
+                        en: "Tech Enthusiast",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart casual",
+                            subject: "seorang tech enthusiast muda",
+                            action: "berinteraksi dengan gadget terbaru",
+                            expression: "ekspresi antusias",
+                            emotion: "energik",
+                            location: "di ruang kerja modern",
+                            environment: "high-tech",
+                            lighting: "cool lighting",
+                            camera: "dynamic tracking",
+                            style: "modern",
+                            mood: "energetic",
+                            audio: "musik elektronik ambient",
+                            details: "dikelilingi gadget canggih, hologram dan layar interaktif, pencahayaan neon subtle"
+                        }
+                    },
+                    influencer: {
+                        id: "Content Creator",
+                        en: "Content Creator",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "trendy",
+                            subject: "seorang content creator yang stylish",
+                            action: "berinteraksi dengan kamera vlog",
+                            expression: "senyuman ramah dan energik",
+                            emotion: "cheerful",
+                            location: "di studio content creation",
+                            environment: "modern studio",
+                            lighting: "ring light perfect",
+                            camera: "vlog style",
+                            style: "modern",
+                            mood: "upbeat",
+                            audio: "musik upbeat modern",
+                            details: "setup vlog profesional, ring light reflection di mata, background bokeh aesthetic"
+                        }
+                    }
+                }
+            },
+            digital: {
+                name: { id: "Digital", en: "Digital" },
+                presets: {
+                    crypto_expert: {
+                        id: "Crypto Expert",
+                        en: "Crypto Expert",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart casual",
+                            subject: "seorang ahli cryptocurrency yang profesional",
+                            action: "menjelaskan grafik trading dengan percaya diri",
+                            expression: "ekspresi serius dan berwibawa",
+                            emotion: "percaya diri",
+                            location: "di ruang trading modern",
+                            environment: "high-tech",
+                            lighting: "cool lighting",
+                            camera: "dynamic multi-angle",
+                            style: "professional",
+                            mood: "confident",
+                            audio: "musik elektronik yang dinamis",
+                            details: "dikelilingi monitor dengan grafik crypto, hologram Bitcoin, pakaian formal modern dengan smart watch"
+                        }
+                    },
+                    nft_artist: {
+                        id: "Seniman NFT",
+                        en: "NFT Artist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "artistic modern",
+                            subject: "seorang seniman digital NFT",
+                            action: "membuat karya seni digital",
+                            expression: "ekspresi kreatif dan fokus",
+                            emotion: "inspiratif",
+                            location: "di studio digital futuristik",
+                            environment: "artistic tech",
+                            lighting: "neon accent lighting",
+                            camera: "smooth orbit",
+                            style: "futuristic",
+                            mood: "creative",
+                            audio: "synthwave ambient",
+                            details: "menggunakan tablet pen, proyeksi holografik karya NFT, aksen neon ungu-biru, setup workstation aesthetic"
+                        }
+                    }
+                }
+            },
+            social_media: {
+                name: { id: "Social Media", en: "Social Media" },
+                presets: {
+                    beauty_vlogger: {
+                        id: "Beauty Vlogger",
+                        en: "Beauty Vlogger",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "trendy fashionable",
+                            subject: "seorang beauty influencer profesional",
+                            action: "mendemonstrasikan tutorial makeup",
+                            expression: "senyuman ramah dan menarik",
+                            emotion: "cheerful",
+                            location: "di beauty studio aesthetic",
+                            environment: "modern glam",
+                            lighting: "beauty ring light",
+                            camera: "close-up detail shots",
+                            style: "beauty",
+                            mood: "upbeat",
+                            audio: "musik pop ceria",
+                            details: "setup lighting profesional, koleksi makeup luxury, background vanity aesthetic, outfit trendy"
+                        }
+                    },
+                    food_blogger: {
+                        id: "Food Blogger",
+                        en: "Food Blogger",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "casual chic",
+                            subject: "seorang food blogger populer",
+                            action: "mempresentasikan hidangan kuliner",
+                            expression: "ekspresi antusias dan mengundang selera",
+                            emotion: "excited",
+                            location: "di dapur aesthetic modern",
+                            environment: "warm and inviting",
+                            lighting: "soft natural with accent",
+                            camera: "food cinematography",
+                            style: "lifestyle",
+                            mood: "appetizing",
+                            audio: "musik jazz ringan",
+                            details: "plating makanan profesional, steam mengepul, pencahayaan samping dramatic, props foto kuliner"
+                        }
+                    },
+                    lifestyle_influencer: {
+                        id: "Lifestyle Influencer",
+                        en: "Lifestyle Influencer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "high fashion",
+                            subject: "seorang lifestyle influencer elite",
+                            action: "melakukan fashion showcase",
+                            expression: "ekspresi sophisticated",
+                            emotion: "confident",
+                            location: "di boutique luxury",
+                            environment: "high-end",
+                            lighting: "fashion photography",
+                            camera: "catwalk style",
+                            style: "luxury",
+                            mood: "elegant",
+                            audio: "musik house elegant",
+                            details: "branded items, interior mewah, detail aksesori luxury, ambient pencahayaan premium"
+                        }
+                    }
+                }
+            },
+            tech_business: {
+                name: { id: "Tech & Bisnis", en: "Tech & Business" },
+                presets: {
+                    startup_founder: {
+                        id: "Founder Startup",
+                        en: "Startup Founder",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart casual modern",
+                            subject: "seorang founder startup teknologi",
+                            action: "memimpin presentasi pitch deck",
+                            expression: "ekspresi visioner dan inspiratif",
+                            emotion: "passionate",
+                            location: "di coworking space modern",
+                            environment: "startup culture",
+                            lighting: "modern office lighting",
+                            camera: "startup documentary",
+                            style: "professional casual",
+                            mood: "innovative",
+                            audio: "musik inspiratif modern",
+                            details: "presentasi di layar besar, tim diverse di background, gestur tangan yang ekspresif, outfit smart casual khas startup"
+                        }
+                    },
+                    tech_reviewer: {
+                        id: "Tech Reviewer",
+                        en: "Tech Reviewer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "tech casual",
+                            subject: "seorang tech reviewer profesional",
+                            action: "mengulas gadget terbaru",
+                            expression: "ekspresi detail dan informatif",
+                            emotion: "enthusiastic",
+                            location: "di studio tech review",
+                            environment: "tech showcase",
+                            lighting: "product showcase lighting",
+                            camera: "product review style",
+                            style: "tech review",
+                            mood: "informative",
+                            audio: "musik tech upbeat",
+                            details: "multiple camera setup, b-roll produk detail, lighting setup profesional, desk setup aesthetic"
+                        }
+                    }
+                }
+            },
+            cinematic: {
+                name: { id: "Sinematik", en: "Cinematic" },
+                presets: {
+                    film_director: {
+                        id: "Sutradara Film",
+                        en: "Film Director",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "artistic professional",
+                            subject: "seorang sutradara film visioner",
+                            action: "mengarahkan scene dengan penuh passion",
+                            expression: "ekspresi fokus dan artistik",
+                            emotion: "passionate",
+                            location: "di set film profesional",
+                            environment: "film production",
+                            lighting: "cinematic lighting",
+                            camera: "director's perspective",
+                            style: "film industry",
+                            mood: "creative",
+                            audio: "ambient film set",
+                            details: "memegang script dan monitor director, crew di background, peralatan film profesional, slate board"
+                        }
+                    },
+                    cinematographer: {
+                        id: "Sinematografer",
+                        en: "Cinematographer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "professional casual",
+                            subject: "seorang sinematografer berbakat",
+                            action: "mengatur komposisi shot",
+                            expression: "ekspresi detail oriented",
+                            emotion: "focused",
+                            location: "di lokasi syuting scenic",
+                            environment: "outdoor cinematic",
+                            lighting: "magic hour",
+                            camera: "behind the scenes",
+                            style: "cinematic",
+                            mood: "artistic",
+                            audio: "instrumental cinematic",
+                            details: "mengoperasikan kamera profesional, slider dan gimbal setup, monitor preview, landscape dramatis"
+                        }
+                    }
+                }
+            },
+            adventure: {
+                name: { id: "Petualangan", en: "Adventure" },
+                presets: {
+                    travel_photographer: {
+                        id: "Fotografer Travel",
+                        en: "Travel Photographer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "adventure ready",
+                            subject: "seorang fotografer travel profesional",
+                            action: "memotret pemandangan eksotis",
+                            expression: "ekspresi kagum dan fokus",
+                            emotion: "passionate",
+                            location: "di lokasi eksotis Indonesia",
+                            environment: "natural wonder",
+                            lighting: "golden sunrise",
+                            camera: "adventure perspective",
+                            style: "travel documentary",
+                            mood: "adventurous",
+                            audio: "ambient alam dengan musik etnik",
+                            details: "membawa kamera profesional, ransel adventure, drone di background, pemandangan breathtaking"
+                        }
+                    },
+                    adventure_vlogger: {
+                        id: "Adventure Vlogger",
+                        en: "Adventure Vlogger",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "outdoor chic",
+                            subject: "seorang adventure vlogger yang energik",
+                            action: "melakukan aktivitas outdoor seru",
+                            expression: "ekspresi excited dan berani",
+                            emotion: "adventurous",
+                            location: "di lokasi extreme sport",
+                            environment: "adrenaline pumping",
+                            lighting: "natural dramatic",
+                            camera: "action camera style",
+                            style: "adventure",
+                            mood: "exciting",
+                            audio: "musik upbeat adventure",
+                            details: "peralatan adventure lengkap, gopro mounted, drone shots, aksi ekstrim yang aman"
+                        }
+                    }
+                }
+            },
+            wellness: {
+                name: { id: "Kesehatan & Wellness", en: "Health & Wellness" },
+                presets: {
+                    mindfulness_coach: {
+                        id: "Coach Mindfulness",
+                        en: "Mindfulness Coach",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "zen elegant",
+                            subject: "seorang mindfulness coach berpengalaman",
+                            action: "memimpin sesi meditasi",
+                            expression: "ekspresi damai dan bijaksana",
+                            emotion: "serene",
+                            location: "di wellness center modern",
+                            environment: "peaceful sanctuary",
+                            lighting: "soft natural",
+                            camera: "gentle movement",
+                            style: "mindful",
+                            mood: "peaceful",
+                            audio: "musik meditasi dengan nature sounds",
+                            details: "ruangan dengan elemen zen, diffuser aromaterapi, cushions meditasi, indoor plants"
+                        }
+                    },
+                    holistic_healer: {
+                        id: "Praktisi Holistik",
+                        en: "Holistic Practitioner",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "natural elegant",
+                            subject: "seorang praktisi pengobatan holistik",
+                            action: "melakukan terapi natural",
+                            expression: "ekspresi menenangkan dan empati",
+                            emotion: "nurturing",
+                            location: "di klinik holistik",
+                            environment: "healing space",
+                            lighting: "warm natural",
+                            camera: "gentle tracking",
+                            style: "natural",
+                            mood: "calming",
+                            audio: "musik healing dengan crystal bowls",
+                            details: "menggunakan essential oils, crystal healing tools, herbal remedies, suasana spa mewah"
+                        }
+                    }
+                }
+            },
+            education: {
+                name: { id: "Edukasi Modern", en: "Modern Education" },
+                presets: {
+                    online_mentor: {
+                        id: "Mentor Online",
+                        en: "Online Mentor",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart professional",
+                            subject: "seorang mentor online sukses",
+                            action: "memberikan presentasi interaktif",
+                            expression: "ekspresi engaging dan inspiratif",
+                            emotion: "enthusiastic",
+                            location: "di studio online course",
+                            environment: "professional studio",
+                            lighting: "perfect key light",
+                            camera: "educational style",
+                            style: "educational",
+                            mood: "inspiring",
+                            audio: "musik motivational",
+                            details: "setup green screen profesional, grafik animasi, interactive display, gesture yang mengajar"
+                        }
+                    },
+                    edu_creator: {
+                        id: "Kreator Edukasi",
+                        en: "Educational Creator",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart casual",
+                            subject: "seorang content creator edukasi",
+                            action: "menjelaskan konsep dengan animasi",
+                            expression: "ekspresi friendly dan smart",
+                            emotion: "engaging",
+                            location: "di studio edukasi kreatif",
+                            environment: "learning space",
+                            lighting: "bright and clean",
+                            camera: "educational content",
+                            style: "edu-tainment",
+                            mood: "fun learning",
+                            audio: "musik fun educational",
+                            details: "whiteboard animasi, props edukatif, infografis animated, setup mengajar modern"
+                        }
+                    }
+                }
+            },
+            sports_fitness: {
+                name: { id: "Olahraga & Fitness", en: "Sports & Fitness" },
+                presets: {
+                    fitness_coach: {
+                        id: "Personal Trainer",
+                        en: "Fitness Coach",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "athletic professional",
+                            subject: "seorang personal trainer profesional",
+                            action: "mendemonstrasikan gerakan workout",
+                            expression: "ekspresi energik dan motivasi",
+                            emotion: "powerful",
+                            location: "di gym modern premium",
+                            environment: "high-end fitness",
+                            lighting: "dynamic gym lighting",
+                            camera: "fitness tutorial style",
+                            style: "sports",
+                            mood: "energetic",
+                            audio: "musik workout motivational",
+                            details: "peralatan gym premium, mirror wall, outfit fitness branded, perfect form exercise"
+                        }
+                    },
+                    yoga_master: {
+                        id: "Master Yoga",
+                        en: "Yoga Master",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "yoga chic",
+                            subject: "seorang master yoga berpengalaman",
+                            action: "melakukan pose yoga advanced",
+                            expression: "ekspresi tenang dan fokus",
+                            emotion: "balanced",
+                            location: "di studio yoga luxury",
+                            environment: "zen modern",
+                            lighting: "soft morning light",
+                            camera: "flowing movement",
+                            style: "mindful fitness",
+                            mood: "peaceful",
+                            audio: "musik yoga contemplatif",
+                            details: "yoga mat premium, indoor plants, bamboo elements, natural light streaming"
+                        }
+                    },
+                    calisthenics: {
+                        id: "Atlet Calisthenics",
+                        en: "Calisthenics Athlete",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "athletic street",
+                            subject: "seorang atlet calisthenics street workout",
+                            action: "melakukan gerakan gymnastic strength",
+                            expression: "ekspresi fokus dan kuat",
+                            emotion: "determined",
+                            location: "di outdoor calisthenics park",
+                            environment: "urban sports",
+                            lighting: "natural dramatic",
+                            camera: "dynamic action",
+                            style: "street sports",
+                            mood: "powerful",
+                            audio: "musik urban dynamic",
+                            details: "parallel bars, rings, perfect form muscle ups, urban skyline background"
+                        }
+                    }
+                }
+            },
+            performing_arts: {
+                name: { id: "Seni Pertunjukan", en: "Performing Arts" },
+                presets: {
+                    musician_performer: {
+                        id: "Musisi Performer",
+                        en: "Music Performer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "stage ready",
+                            subject: "seorang musisi performer berbakat",
+                            action: "tampil dengan penuh passion",
+                            expression: "ekspresi passionate performance",
+                            emotion: "soulful",
+                            location: "di panggung concert",
+                            environment: "stage performance",
+                            lighting: "stage lighting dramatic",
+                            camera: "concert coverage",
+                            style: "music video",
+                            mood: "energetic",
+                            audio: "live music performance",
+                            details: "alat musik profesional, lighting stage, smoke effect, audience silhouette"
+                        }
+                    },
+                    contemporary_dancer: {
+                        id: "Penari Kontemporer",
+                        en: "Contemporary Dancer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "dance aesthetic",
+                            subject: "seorang penari kontemporer profesional",
+                            action: "melakukan gerakan tari kontemporer",
+                            expression: "ekspresi artistic deep",
+                            emotion: "expressive",
+                            location: "di studio dance artistic",
+                            environment: "artistic space",
+                            lighting: "artistic spotlights",
+                            camera: "flowing movement",
+                            style: "contemporary art",
+                            mood: "artistic",
+                            audio: "musik contemporary dance",
+                            details: "kostum flowing, mirror walls, wooden floors, dramatic shadows"
+                        }
+                    }
+                }
+            },
+            culinary_arts: {
+                name: { id: "Seni Kuliner", en: "Culinary Arts" },
+                presets: {
+                    master_chef: {
+                        id: "Master Chef",
+                        en: "Master Chef",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "chef professional",
+                            subject: "seorang master chef berpengalaman",
+                            action: "memasak hidangan fine dining",
+                            expression: "ekspresi fokus dan passionate",
+                            emotion: "masterful",
+                            location: "di dapur profesional high-end",
+                            environment: "professional kitchen",
+                            lighting: "culinary photography",
+                            camera: "food cinematography",
+                            style: "culinary arts",
+                            mood: "sophisticated",
+                            audio: "kitchen ambience refined",
+                            details: "knife skills perfect, plating artistic, steam rising, kitchen equipment premium"
+                        }
+                    },
+                    pastry_artist: {
+                        id: "Pastry Artist",
+                        en: "Pastry Artist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "pastry chic",
+                            subject: "seorang pastry chef artistik",
+                            action: "mendekorasi dessert mewah",
+                            expression: "ekspresi detail oriented",
+                            emotion: "creative",
+                            location: "di pastry kitchen modern",
+                            environment: "patisserie",
+                            lighting: "soft culinary",
+                            camera: "detail shots",
+                            style: "food art",
+                            mood: "elegant",
+                            audio: "musik french cafe",
+                            details: "pastry tools complete, chocolate tempering, sugar art, perfect presentation"
+                        }
+                    }
+                }
+            },
+            fashion_beauty: {
+                name: { id: "Fashion & Kecantikan", en: "Fashion & Beauty" },
+                presets: {
+                    fashion_designer: {
+                        id: "Designer Fashion",
+                        en: "Fashion Designer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "fashion forward",
+                            subject: "seorang fashion designer terkenal",
+                            action: "mendesain koleksi fashion",
+                            expression: "ekspresi creative chic",
+                            emotion: "artistic",
+                            location: "di studio fashion design",
+                            environment: "fashion atelier",
+                            lighting: "fashion studio",
+                            camera: "fashion documentary",
+                            style: "high fashion",
+                            mood: "sophisticated",
+                            audio: "musik fashion show",
+                            details: "sketches fashion, fabric swatches, mannequins, sewing machines premium"
+                        }
+                    },
+                    makeup_artist: {
+                        id: "MUA Profesional",
+                        en: "Professional MUA",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "beauty professional",
+                            subject: "seorang makeup artist profesional",
+                            action: "mengaplikasikan makeup artistic",
+                            expression: "ekspresi focused artist",
+                            emotion: "creative",
+                            location: "di studio makeup profesional",
+                            environment: "beauty studio",
+                            lighting: "beauty lighting",
+                            camera: "beauty shots",
+                            style: "beauty art",
+                            mood: "glamorous",
+                            audio: "musik beauty ambient",
+                            details: "makeup tools premium, perfect application, color theory, skin texture perfect"
+                        }
+                    },
+                    hair_stylist: {
+                        id: "Hair Stylist",
+                        en: "Hair Stylist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "stylish professional",
+                            subject: "seorang hair stylist kreatif",
+                            action: "menciptakan hair style artistic",
+                            expression: "ekspresi artistic focus",
+                            emotion: "creative",
+                            location: "di salon premium",
+                            environment: "high-end salon",
+                            lighting: "salon perfect",
+                            camera: "hair styling shots",
+                            style: "hair fashion",
+                            mood: "trendy",
+                            audio: "musik salon modern",
+                            details: "tools profesional, mirror setup, hair products luxury, perfect styling technique"
+                        }
+                    }
+                }
+            },
+            gaming_esports: {
+                name: { id: "Gaming & Esports", en: "Gaming & Esports" },
+                presets: {
+                    pro_gamer: {
+                        id: "Pro Gamer",
+                        en: "Pro Gamer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "gaming style",
+                            subject: "seorang pro gamer profesional",
+                            action: "bermain game dengan skill tinggi",
+                            expression: "ekspresi fokus intense",
+                            emotion: "concentrated",
+                            location: "di gaming setup premium",
+                            environment: "pro gaming",
+                            lighting: "RGB gaming setup",
+                            camera: "streamer angle",
+                            style: "esports",
+                            mood: "competitive",
+                            audio: "game sound effects",
+                            details: "setup gaming high-end, multiple monitors, RGB lighting, gaming chair premium"
+                        }
+                    },
+                    game_streamer: {
+                        id: "Game Streamer",
+                        en: "Game Streamer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "streamer style",
+                            subject: "seorang game streamer populer",
+                            action: "streaming dengan energetic",
+                            expression: "ekspresi ceria dan engaging",
+                            emotion: "entertaining",
+                            location: "di streaming room aesthetic",
+                            environment: "stream setup",
+                            lighting: "stream lighting perfect",
+                            camera: "stream angle",
+                            style: "entertainment",
+                            mood: "fun",
+                            audio: "stream background music",
+                            details: "stream deck, webcam HD, microphone profesional, background aesthetic gaming"
+                        }
+                    }
+                }
+            },
+            art_design: {
+                name: { id: "Seni & Desain", en: "Art & Design" },
+                presets: {
+                    digital_artist: {
+                        id: "Digital Artist",
+                        en: "Digital Artist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "artistic casual",
+                            subject: "seorang digital artist kreatif",
+                            action: "membuat digital artwork",
+                            expression: "ekspresi kreatif mendalam",
+                            emotion: "inspired",
+                            location: "di studio digital art",
+                            environment: "creative space",
+                            lighting: "artistic lighting",
+                            camera: "creative angle",
+                            style: "digital art",
+                            mood: "creative",
+                            audio: "musik ambient artistic",
+                            details: "drawing tablet pro, multiple displays, artwork previews, creative workspace"
+                        }
+                    },
+                    graphic_designer: {
+                        id: "Graphic Designer",
+                        en: "Graphic Designer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "designer style",
+                            subject: "seorang graphic designer profesional",
+                            action: "mendesain project kreatif",
+                            expression: "ekspresi focused creative",
+                            emotion: "artistic",
+                            location: "di design studio modern",
+                            environment: "design workspace",
+                            lighting: "modern office",
+                            camera: "design workspace",
+                            style: "modern design",
+                            mood: "professional",
+                            audio: "musik design inspiration",
+                            details: "mockups design, color palettes, design tools, modern workspace setup"
+                        }
+                    }
+                }
+            },
+            business_finance: {
+                name: { id: "Bisnis & Keuangan", en: "Business & Finance" },
+                presets: {
+                    business_consultant: {
+                        id: "Konsultan Bisnis",
+                        en: "Business Consultant",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "business professional",
+                            subject: "seorang konsultan bisnis sukses",
+                            action: "memberikan presentasi bisnis",
+                            expression: "ekspresi confident professional",
+                            emotion: "authoritative",
+                            location: "di ruang meeting executive",
+                            environment: "corporate",
+                            lighting: "office professional",
+                            camera: "business presentation",
+                            style: "corporate",
+                            mood: "professional",
+                            audio: "musik corporate",
+                            details: "presentation slides, laser pointer, business charts, executive furniture"
+                        }
+                    },
+                    financial_analyst: {
+                        id: "Analis Keuangan",
+                        en: "Financial Analyst",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "smart business",
+                            subject: "seorang financial analyst expert",
+                            action: "menganalisis data keuangan",
+                            expression: "ekspresi analytical sharp",
+                            emotion: "focused",
+                            location: "di trading floor modern",
+                            environment: "financial",
+                            lighting: "office dynamic",
+                            camera: "financial workspace",
+                            style: "finance",
+                            mood: "analytical",
+                            audio: "ambient office modern",
+                            details: "multiple financial screens, real-time data, analysis tools, modern office setup"
+                        }
+                    }
+                }
+            },
+            science_tech: {
+                name: { id: "Sains & Teknologi", en: "Science & Technology" },
+                presets: {
+                    data_scientist: {
+                        id: "Data Scientist",
+                        en: "Data Scientist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "tech professional",
+                            subject: "seorang data scientist inovatif",
+                            action: "menganalisis big data",
+                            expression: "ekspresi analytical deep",
+                            emotion: "focused",
+                            location: "di lab data modern",
+                            environment: "tech lab",
+                            lighting: "modern tech",
+                            camera: "tech workspace",
+                            style: "technical",
+                            mood: "innovative",
+                            audio: "ambient tech",
+                            details: "visualisasi data, multiple screens, AI models, modern lab equipment"
+                        }
+                    },
+                    researcher: {
+                        id: "Peneliti",
+                        en: "Researcher",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "lab professional",
+                            subject: "seorang peneliti sains",
+                            action: "melakukan eksperimen",
+                            expression: "ekspresi curious intellectual",
+                            emotion: "focused",
+                            location: "di laboratorium canggih",
+                            environment: "research lab",
+                            lighting: "lab lighting",
+                            camera: "research documentation",
+                            style: "scientific",
+                            mood: "analytical",
+                            audio: "ambient lab",
+                            details: "peralatan lab modern, microscope, data charts, research papers"
+                        }
+                    }
+                }
+            },
+            outdoor_nature: {
+                name: { id: "Outdoor & Alam", en: "Outdoor & Nature" },
+                presets: {
+                    nature_photographer: {
+                        id: "Fotografer Alam",
+                        en: "Nature Photographer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa (36-50 tahun)",
+                            appearance: "outdoor professional",
+                            subject: "seorang fotografer alam wildlife",
+                            action: "memotret kehidupan liar",
+                            expression: "ekspresi focused passionate",
+                            emotion: "adventurous",
+                            location: "di hutan tropis",
+                            environment: "wildlife",
+                            lighting: "natural dramatic",
+                            camera: "wildlife photography",
+                            style: "nature",
+                            mood: "discovery",
+                            audio: "suara alam natural",
+                            details: "kamera profesional, telephoto lens, camouflage gear, natural habitat"
+                        }
+                    },
+                    mountaineer: {
+                        id: "Pendaki Gunung",
+                        en: "Mountaineer",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "pria",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "mountaineering gear",
+                            subject: "seorang mountaineer berpengalaman",
+                            action: "mendaki puncak gunung",
+                            expression: "ekspresi determined strong",
+                            emotion: "adventurous",
+                            location: "di puncak gunung",
+                            environment: "mountain peak",
+                            lighting: "sunrise dramatic",
+                            camera: "adventure angle",
+                            style: "adventure",
+                            mood: "epic",
+                            audio: "wind ambient mountain",
+                            details: "climbing gear complete, mountain view spectacular, weather challenging, summit flag"
+                        }
+                    },
+                    marine_biologist: {
+                        id: "Biologis Laut",
+                        en: "Marine Biologist",
+                        data: {
+                            faceType: "indonesian",
+                            gender: "wanita",
+                            age: "dewasa muda (20-35 tahun)",
+                            appearance: "diving gear",
+                            subject: "seorang marine biologist",
+                            action: "meneliti kehidupan laut",
+                            expression: "ekspresi passionate curious",
+                            emotion: "fascinated",
+                            location: "di terumbu karang",
+                            environment: "underwater",
+                            lighting: "underwater natural",
+                            camera: "underwater shots",
+                            style: "marine science",
+                            mood: "discovery",
+                            audio: "underwater ambient",
+                            details: "scuba gear, research equipment, coral reefs, marine life interaction"
+                        }
+                    }
+                }
+            }
+        };
+
+        // Add preset selector UI
+        function addPresetSelector() {
+            const presetSection = document.createElement('div');
+            presetSection.className = 'advanced-section mb-4';
+            presetSection.innerHTML = `
+                <h4 class="section-header">
+                    <i class="fas fa-magic"></i> <span id="presetHeader">Preset Profesional</span>
+                </h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-layer-group"></i> <span id="categoryLabel">Kategori</span>
+                        </label>
+                        <select class="form-select" id="presetCategory" onchange="updatePresetOptions()">
+                            ${Object.entries(presetCategories).map(([key, category]) => 
+                                `<option value="${key}">${category.name.id}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-wand-magic-sparkles"></i> <span id="presetLabel">Preset</span>
+                        </label>
+                        <select class="form-select" id="presetSelect" onchange="loadSelectedPreset()">
+                            <option value="">Pilih preset...</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            // Insert after the title section
+            const titleSection = document.querySelector('.text-center.mb-5');
+            titleSection.parentNode.insertBefore(presetSection, titleSection.nextSibling);
+
+            // Initialize preset options
+            updatePresetOptions();
+        }
+
+        // Update preset options based on selected category
+        function updatePresetOptions() {
+            const category = document.getElementById('presetCategory').value;
+            const presetSelect = document.getElementById('presetSelect');
+            const presets = presetCategories[category].presets;
+
+            presetSelect.innerHTML = `<option value="">Pilih preset...</option>`;
+            Object.entries(presets).forEach(([key, preset]) => {
+                presetSelect.innerHTML += `<option value="${key}">${preset.id}</option>`;
+            });
+        }
+
+        // Load selected preset
+        function loadSelectedPreset() {
+            const category = document.getElementById('presetCategory').value;
+            const preset = document.getElementById('presetSelect').value;
+
+            if (!preset) return;
+
+            const presetData = presetCategories[category].presets[preset].data;
+
+            // Set face type
+            selectFaceType(presetData.faceType);
+
+            // Fill all form fields
+            Object.entries(presetData).forEach(([key, value]) => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = value;
+                }
+            });
+
+            // Update quality indicator
+            updateQuality();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', handleError(() => {
+            initializeElements();
+            addPresetSelector();
+            updateQuality();
+            
+            // Add input listeners for character counting
+            ['subject', 'action', 'details'].forEach(fieldId => {
+                const field = elements[fieldId] || document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', updateQuality);
+                }
+            });
+        }));
+
+        // Add quality tips
+        function showQualityTips() {
+            const tips = [
+                'Gunakan deskripsi yang detail dan spesifik',
+                'Tambahkan informasi tentang pencahayaan dan suasana',
+                'Jelaskan gerakan kamera dan angle yang diinginkan',
+                'Sertakan detail audio dan background sound',
+                'Deskripsikan ekspresi dan emosi dengan jelas',
+                'Tambahkan elemen visual pendukung di background'
+            ];
+            
+            const tipsHtml = tips.map(tip => `<li>${tip}</li>`).join('');
+            document.getElementById('tipsList').innerHTML = tipsHtml;
+        }
+
+        // Call quality tips on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showQualityTips();
+            updateQuality();
+        });
+
+        // Quality Enhancement Features
+        const qualityEnhancements = {
+            lighting: {
+                basic: ['natural lighting', 'studio lighting', 'ambient lighting'],
+                advanced: ['cinematic lighting', 'dramatic shadows', 'golden hour', 'blue hour', 'rim lighting']
+            },
+            camera: {
+                basic: ['close-up', 'medium shot', 'wide shot'],
+                advanced: ['Dutch angle', 'tracking shot', 'dolly zoom', 'aerial view', 'steadicam']
+            },
+            details: {
+                environment: ['detailed background', 'atmospheric elements', 'depth of field'],
+                technical: ['8K resolution', 'high dynamic range', 'sharp focus', 'bokeh effect']
+            },
+            audio: {
+                ambient: ['natural ambiance', 'environmental sounds', 'room tone'],
+                music: ['background score', 'emotional soundtrack', 'thematic music']
+            }
+        };
+
+        function enhancePromptQuality(field, value) {
+            if (!value) return value;
+            
+            let enhanced = value;
+            const fieldType = field.toLowerCase();
+            
+            // Add quality-specific enhancements based on field type
+            if (fieldType === 'lighting' && !value.includes('lighting')) {
+                enhanced += `, ${qualityEnhancements.lighting.advanced[Math.floor(Math.random() * qualityEnhancements.lighting.advanced.length)]}`;
+            }
+            
+            if (fieldType === 'camera' && !value.includes('shot')) {
+                enhanced += `, ${qualityEnhancements.camera.advanced[Math.floor(Math.random() * qualityEnhancements.camera.advanced.length)]}`;
+            }
+            
+            if (fieldType === 'details' && value.length < 100) {
+                enhanced += `, ${qualityEnhancements.details.environment[Math.floor(Math.random() * qualityEnhancements.details.environment.length)]}`;
+                enhanced += `, ${qualityEnhancements.details.technical[Math.floor(Math.random() * qualityEnhancements.details.technical.length)]}`;
+            }
+            
+            if (fieldType === 'audio' && !value.includes('sound')) {
+                enhanced += `, ${qualityEnhancements.audio.ambient[Math.floor(Math.random() * qualityEnhancements.audio.ambient.length)]}`;
+            }
+            
+            return enhanced;
+        }
+
+        // Add event listeners for quality enhancement
+        document.querySelectorAll('textarea, input[type="text"]').forEach(element => {
+            element.addEventListener('blur', () => {
+                if (element.value) {
+                    element.value = enhancePromptQuality(element.id, element.value);
+                    updateQuality();
+                }
+            });
+        });
+
+        // Quality validation before submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            const quality = parseInt(elements.qualityText.textContent);
+            if (quality < 80) {
+                e.preventDefault();
+                alert('Kualitas prompt minimal harus 80%. Silakan tambahkan lebih banyak detail untuk meningkatkan kualitas.');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
+
