@@ -4,6 +4,16 @@ class AIAssistant {
         this.apiUrl = 'https://api.siputzx.my.id/api/ai/gemini-pro';
         this.websiteContext = this.generateWebsiteContext();
         this.language = 'id';
+        this.headers = {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Origin': 'https://api.siputzx.my.id',
+            'Referer': 'https://api.siputzx.my.id/post/documentation/',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-dest': 'empty',
+            'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7'
+        };
         this.knowledgeDomains = {
             technology: ['programming', 'software', 'hardware', 'internet', 'AI', 'cybersecurity', 'blockchain'],
             science: ['physics', 'chemistry', 'biology', 'astronomy', 'mathematics', 'medicine'],
@@ -297,101 +307,54 @@ class AIAssistant {
         try {
             const lowercaseMessage = message.toLowerCase();
             
-            // Handle greetings
+            // Handle special cases first
             if (lowercaseMessage.match(/^(hai|halo|hey)/i)) {
                 return 'Hai! Apa kabar?';
             }
-
-            // Check creator questions
             if (this.creatorKeywords.some(keyword => lowercaseMessage.includes(keyword.toLowerCase()))) {
                 return 'Kupraa yang bikin aku.';
             }
-
-            // Handle location/website questions
             if (lowercaseMessage.includes('dimana') || lowercaseMessage.includes('web apa')) {
                 return 'Ini web Veo 3, tempat bikin prompt video keren pake Gemini AI.';
             }
-
-            // Handle identity questions
             if (lowercaseMessage.includes('siapa kamu')) {
                 return 'Hai! Aku Qyu, temen ngobrol yang bisa bantu jawab pertanyaan kamu tentang apa aja.';
             }
 
-            // Analyze the query for better understanding
-            const analysis = await this.analyzeQuery(message);
+            // Add error handling for network issues
+            try {
+                const response = await fetch(this.apiUrl, {
+                    method: 'POST',
+                    headers: this.headers,
+                    body: JSON.stringify({
+                        content: message
+                    }),
+                    mode: 'cors',
+                    credentials: 'include'
+                });
 
-            // Enhanced context with natural human-like personality
-            const enhancedMessage = `
-[Konteks Percakapan]
-Saya Qyu, seseorang yang senang berbagi pengetahuan dan membantu orang lain.
+                if (!response.ok) {
+                    console.error('API Error:', response.status);
+                    if (response.status === 401) {
+                        return 'Waduh, sepertinya ada masalah akses. Coba refresh halaman atau hubungi admin ya!';
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-[Gaya Bicara]
-- Santai dan natural seperti teman ngobrol
-- Pakai bahasa sehari-hari yang sopan
-- Ramah dan hangat
-- Punya wawasan luas
-- Bisa jelasin dengan simpel
-
-[Konteks Website]
-${this.websiteContext.title ? `Tentang: ${this.websiteContext.title}` : ''}
-${this.websiteContext.description ? `Deskripsi: ${this.websiteContext.description}` : ''}
-${this.websiteContext.features.length ? `Fitur: ${this.websiteContext.features.join(', ')}` : ''}
-
-[Pertanyaan]
-${message}
-
-[Panduan Jawaban]
-1. Jawab dengan santai tapi tetap sopan
-2. Kasih info yang akurat dan lengkap
-3. Jelasin dengan bahasa yang gampang dimengerti
-4. Tunjukin kalau paham maksud pertanyaannya
-5. Kasih solusi yang praktis
-6. Kalau bisa sisipkan contoh
-
-[Karakter]
-- Ramah dan hangat seperti teman
-- Punya pengetahuan luas
-- Suka berbagi ilmu
-- Bisa adaptasi dengan lawan bicara
-- Punya empati
-
-[Khusus]
-- Kalau gak tau: "Wah, maaf nih saya kurang paham soal itu"
-- Kalau dikoreksi: "Oh iya bener, makasih ya udah dikoreksi"
-`;
-
-            const response = await fetch(this.apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': '*/*',
-                    'Origin': 'https://api.siputzx.my.id',
-                    'Referer': 'https://api.siputzx.my.id/post/documentation/',
-                    'sec-fetch-site': 'same-origin',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-dest': 'empty',
-                    'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7'
-                },
-                body: JSON.stringify({
-                    content: enhancedMessage
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            if (data.status && data.data) {
-                // Make response more natural and conversational
-                const naturalResponse = this.makeResponseNatural(data.data);
-                return naturalResponse;
-            } else {
-                throw new Error('Invalid response format');
+                const data = await response.json();
+                if (data.status && data.data) {
+                    const naturalResponse = this.makeResponseNatural(data.data);
+                    return naturalResponse;
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('Network Error:', error);
+                return 'Waduh, kayaknya ada masalah koneksi nih. Coba lagi nanti ya!';
             }
         } catch (error) {
             console.error('Error sending message:', error);
-            throw error;
+            return 'Maaf, lagi ada gangguan. Bisa diulangi?';
         }
     }
 
